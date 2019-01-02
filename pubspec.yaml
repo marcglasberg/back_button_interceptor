@@ -1,0 +1,19 @@
+name: back_button_interceptor
+description: Back Button Interceptor
+version: 1.0.0
+author: Marcelo Glasberg <marcglasberg@gmail.com>
+homepage: https://github.com/marcglasberg/network_to_file_image
+
+environment:
+  sdk: ">=2.0.0-dev.68.0 <=5.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
