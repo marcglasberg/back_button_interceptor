@@ -9,19 +9,22 @@ class Demo extends StatefulWidget {
 }
 
 class DemoState extends State<Demo> {
+  //
   @override
   void initState() {
     super.initState();
-    BackButtonInterceptor.set(() {
-      print("BACK BUTTON!");
-      return false;
-    });
+    BackButtonInterceptor.add(myInterceptor);
   }
 
   @override
   void dispose() {
-    BackButtonInterceptor.remove();
+    BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent) {
+    print("BACK BUTTON!"); // Do some stuff.
+    return true;
   }
 
   @override
