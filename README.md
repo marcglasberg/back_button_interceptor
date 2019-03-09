@@ -8,14 +8,25 @@ widgets that interact with the back button, it may be more convenient to use the
 You may add functions to be called when the back button is tapped.
 These functions may perform some useful work, and then, if any of them return true,
 the default button process (usually popping a Route) will not be fired.
+Functions added last are called first.
 
 In more detail: All added functions are called, in order. If any function returns true,
-the combinedResult is true, and the default button process will NOT be fired.
-Only if all functions return false (or null), the combinedResult is false,
-and the default button process will be fired. Each function gets a boolean that
-indicates the current combinedResult from all the previous functions.
+the combined result is true, and the default button process will NOT be fired.
+Only if all functions return false (or null), the combined result is false,
+and the default button process will be fired. 
+
+Each function gets the boolean `stopDefaultButtonEvent` that indicates the current combined result 
+from all the previous functions. So, if some function doesn't want to fire if some other previous 
+function already fired, it can do:
+  
+    if (stopDefaultButtonEvent) return false;
 
 **Note:** After you've finished you MUST remove each function by calling the `remove()` method.
+
+
+**Note:** If any of your interceptors throws an error, a message will be printed to the console,
+but the error will not be thrown. You can change the treatment of errors by changing the
+static `errorProcessing` field.
 
 ## Usage
 
