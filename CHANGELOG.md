@@ -14,6 +14,6 @@
 
 Prevents silent errors swallowing.
 
-## [4.0.0] - 09/03/2019
+## [4.0.1] - 09/03/2019
 
-Functions added last are fired first.
+Functions added last are fired first. Parameters ifNotYetIntercepted and zIndex.
