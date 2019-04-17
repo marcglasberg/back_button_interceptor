@@ -1,19 +1,27 @@
-## [1.0.0] - 02/01/2019
+## [1.0.0] - 2019/01/02
 
 * Tested thoroughly. Single interceptor.
 
-## [2.0.0] - 02/01/2019
+## [2.0.0] - 2019/01/02
 
 * Multiple interceptors.
 
-## [2.0.2] - 22/02/2019
+## [2.0.2] - 2019/02/22
 
 * Fixed dart version.
 
-## [3.0.0] - 03/03/2019
+## [3.0.0] - 2019/03/03
 
-Prevents silent errors swallowing.
+* Prevents silent errors swallowing.
 
-## [4.0.1] - 09/03/2019
+## [4.0.1] - 2019/03/09
 
-Functions added last are fired first. Parameters ifNotYetIntercepted and zIndex.
+* Functions added last are fired first. Parameters ifNotYetIntercepted and zIndex.
+
+## [4.0.2] - 2019/04/02
+
+* Helper methods to get the current route name, and the current route stack.
+
+## [4.0.4] - 2019/04/17
+
+* Testing features.
