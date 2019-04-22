@@ -114,11 +114,13 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
     results.clear();
 
-    for (var i = 0; i < _interceptors.length; i++) {
+    List<_FunctionWithZIndex> interceptors = List.of(_interceptors);
+
+    for (var i = 0; i < interceptors.length; i++) {
       bool result;
 
       try {
-        var interceptor = _interceptors[i];
+        var interceptor = interceptors[i];
 
         if (!interceptor.ifNotYetIntercepted || !stopDefaultButtonEvent) {
           result = interceptor.interceptionFunction(stopDefaultButtonEvent);
