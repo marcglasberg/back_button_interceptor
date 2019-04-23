@@ -20,6 +20,10 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static Function(dynamic) errorProcessing =
       (error) => print("The BackButtonInterceptor threw an ERROR: $error.");
 
+  static Function handlePopRouteFunction = WidgetsBinding.instance.handlePopRoute;
+
+  static Function handlePushRouteFunction = WidgetsBinding.instance.handlePushRoute;
+
   /// Sets a function to be called when the back button is tapped.
   /// This function may perform some useful work, and then, if it returns true,
   /// the default button process (usually popping a Route) will not be fired.
@@ -138,12 +142,12 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
       return Future<dynamic>.value();
     else {
       results.ifDefaultButtonEventWasFired = true;
-      return WidgetsBinding.instance.handlePopRoute();
+      return handlePopRouteFunction();
     }
   }
 
   static Future<void> _pushRoute(dynamic arguments) {
-    return WidgetsBinding.instance.handlePushRoute(arguments);
+    return handlePushRouteFunction(arguments);
   }
 }
 
@@ -152,6 +156,7 @@ typedef InterceptorFunction = bool Function(bool stopDefaultButtonEvent);
 class InterceptorResult {
   String name;
   bool stopDefaultButtonEvent;
+
   InterceptorResult(this.name, this.stopDefaultButtonEvent);
 }
 
