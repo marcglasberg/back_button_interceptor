@@ -112,3 +112,19 @@ recorded in the `BackButtonInterceptor.results` static variable.
 
   * https://docs.flutter.io/flutter/widgets/WillPopScope-class.html
   * https://stackoverflow.com/questions/45916658/de-activate-system-back-button-in-flutter-app-toddler-navigation
+  
+***
+
+*The Flutter packages I've authored:* 
+* <a href="https://pub.dev/packages/async_redux">async_redux</a>
+* <a href="https://pub.dev/packages/align_positioned">align_positioned</a>
+* <a href="https://pub.dev/packages/network_to_file_image">network_to_file_image</a>
+* <a href="https://pub.dev/packages/matrix4_transform">matrix4_transform</a> 
+* <a href="https://pub.dev/packages/back_button_interceptor">back_button_interceptor</a>
+* <a href="https://pub.dev/packages/indexed_list_view">indexed_list_view</a> 
+* <a href="https://pub.dev/packages/animated_size_and_fade">animated_size_and_fade</a>
+
+---<br>_https://github.com/marcglasberg_<br>
+_https://twitter.com/glasbergmarcelo_<br>
+_https://stackoverflow.com/users/3411681/marcg_<br>
+_https://medium.com/@marcglasberg_<br>

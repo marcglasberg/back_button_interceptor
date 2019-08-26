@@ -33,3 +33,7 @@
 ## [4.0.6] - 2019/04/23
 
 * More testing features.
+
+## [4.1.0] - 2019/08/13
+
+* Docs improvement.

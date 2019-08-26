@@ -2,7 +2,7 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../../example/complex_example/main.dart';
+import '../lib/main_complex_example.dart';
 
 void main() {
   testWidgets('Tests intercepting the back-button.', (WidgetTester tester) async {
