@@ -2,7 +2,7 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 
 /// The first screen has a button which opens a second screen.
-/// The second screen has 3 red squares. But tapping the Android back-button (or the "pop" button)
+/// The second screen has 3 red squares. By tapping the Android back-button (or the "pop" button)
 /// each square turns blue, one by one. Only when all squares are blue, tapping the back-button
 /// once more will return to the previous screen.
 ///

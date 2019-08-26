@@ -39,17 +39,16 @@ static `errorProcessing` field.
 static method `BackButtonInterceptor.getCurrentNavigatorRouteName(context)`.
 To get all routes, you may use `getCurrentNavigatorRouteStack(context)`.
 
-## Usage
+## Import the package
 
-### Import the package
-
-First, add back_button_interceptor [as a dependency](https://pub.dartlang.org/packages/back_button_interceptor#-installing-tab-) in your pubspec.yaml
-
-Then, import it:
+Add back_button_interceptor [as a dependency](https://pub.dartlang.org/packages/back_button_interceptor#-installing-tab-) 
+in your pubspec.yaml. Then, import it:
 
     import 'package:back_button_interceptor/back_button_interceptor.dart';
 
-### Example usage
+## Examples
+
+### Intercepting
 
     @override
     void initState() {
@@ -69,7 +68,7 @@ Then, import it:
     }
 
 
-### Example with named function and z-index
+### Named function and z-index
 
     @override
     void initState() {
@@ -88,19 +87,23 @@ Then, import it:
        return true;
     }
 
-## Runnable Examples
+### Runnable Examples
 
-Don't forget to check the [example tab](https://pub.dartlang.org/packages/back_button_interceptor#-example-tab-).
-`main.dart` just intercepts the back-button and prints a string to the console.
+1. <a href="https://github.com/marcglasberg/back_button_interceptor/blob/master/example/lib/main.dart">main</a>
 
-`back_button_interceptor/example/complex_example/main.dart` in the GitHub repository is more involved. 
-The first screen has a button which opens a second screen. 
-The second screen has 3 red squares. But tapping the Android back-button (or the "pop" button) 
-each square turns blue, one by one. Only when all squares are blue, tapping the back-button once 
-more will return to the previous screen. 
+   Intercepts the back-button and prints a string to the console.
 
-This package is test friendly. See an example on testing the back-button here: 
-`back_button_interceptor/test/complex_example/main_test.dart`.
+2. <a href="https://github.com/marcglasberg/back_button_interceptor/blob/master/example/lib/main_complex_example.dart">main_complex_example</a>
+
+   The first screen has a button which opens a second screen. 
+   The second screen has 3 red squares. 
+   By tapping the Android back-button (or the "pop" button) each square turns blue, one by one. 
+   Only when all squares are blue, tapping the back-button once more will return to the previous screen.
+
+3. <a href="https://github.com/marcglasberg/back_button_interceptor/blob/master/example/test/main_complex_example_test.dart">main_complex_example_test</a>
+   
+   This package is test friendly, and this examples shows how to test the back button.
+
  
 ## Testing
 

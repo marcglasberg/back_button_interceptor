@@ -34,6 +34,6 @@
 
 * More testing features.
 
-## [4.1.0] - 2019/08/13
+## [4.1.1] - 2019/08/13
 
 * Docs improvement.
