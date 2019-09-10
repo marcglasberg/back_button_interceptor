@@ -1,3 +1,5 @@
+[![pub package](https://img.shields.io/pub/v/back_button_interceptor.svg)](https://pub.dartlang.org/packages/back_button_interceptor)
+
 # back_button_interceptor
 
 In simple cases, when you need to intercept the Android back-button, you usually add `WillPopScope` 
@@ -127,7 +129,8 @@ recorded in the `BackButtonInterceptor.results` static variable.
 * <a href="https://pub.dev/packages/indexed_list_view">indexed_list_view</a> 
 * <a href="https://pub.dev/packages/animated_size_and_fade">animated_size_and_fade</a>
 
----<br>_https://github.com/marcglasberg_<br>
+<br>_Marcelo Glasberg:_<br>
+_https://github.com/marcglasberg_<br>
 _https://twitter.com/glasbergmarcelo_<br>
 _https://stackoverflow.com/users/3411681/marcg_<br>
 _https://medium.com/@marcglasberg_<br>

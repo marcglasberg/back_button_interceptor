@@ -12,3 +12,4 @@ ios/Runner/GeneratedPluginRegistrant.*
 .idea/
 *.iml
 pubspec.lock
+*.lock
