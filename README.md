@@ -39,7 +39,6 @@ static `errorProcessing` field.
 
 **Note:** If your functions need to know the current route in the navigator, you may use the helper
 static method `BackButtonInterceptor.getCurrentNavigatorRouteName(context)`.
-To get all routes, you may use `getCurrentNavigatorRouteStack(context)`.
 
 ## Import the package
 
@@ -122,6 +121,8 @@ recorded in the `BackButtonInterceptor.results` static variable.
 
 *The Flutter packages I've authored:* 
 * <a href="https://pub.dev/packages/async_redux">async_redux</a>
+* <a href="https://pub.dev/packages/provider_for_redux">provider_for_redux</a>
+* <a href="https://pub.dev/packages/i18_extension">i18_extension</a>
 * <a href="https://pub.dev/packages/align_positioned">align_positioned</a>
 * <a href="https://pub.dev/packages/network_to_file_image">network_to_file_image</a>
 * <a href="https://pub.dev/packages/matrix4_transform">matrix4_transform</a> 

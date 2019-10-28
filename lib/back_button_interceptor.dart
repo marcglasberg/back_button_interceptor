@@ -76,16 +76,6 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     return currentRoute.settings.name;
   }
 
-  /// Trick explained here: https://github.com/flutter/flutter/issues/20451
-  static List<Route> getCurrentNavigatorRouteStack(BuildContext context) {
-    List<Route> currentRoutes = [];
-    Navigator.popUntil(context, (route) {
-      currentRoutes.add(route);
-      return true;
-    });
-    return currentRoutes;
-  }
-
   static Future<dynamic> _handleNavigationInvocation(MethodCall methodCall) async {
     // POP.
     if (methodCall.method == 'popRoute')
