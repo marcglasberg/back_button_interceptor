@@ -1,4 +1,4 @@
-## [4.2.3] - 2019/10/28
+## [4.2.3] - 2019/12/18
 
 * BackButtonInterceptor.describe() to help debug complex interceptors.
 
