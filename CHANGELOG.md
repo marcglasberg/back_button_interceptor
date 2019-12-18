@@ -1,3 +1,7 @@
+## [4.2.3] - 2019/10/28
+
+* BackButtonInterceptor.describe() to help debug complex interceptors.
+
 ## [4.2.2] - 2019/10/28
 
 * Stack removal.

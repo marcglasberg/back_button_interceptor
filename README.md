@@ -112,6 +112,16 @@ For testing purposes, the `BackButtonInterceptor.popRoute()` method may be calle
 to simulate pressing the back button. The list of all fired functions and their results is  
 recorded in the `BackButtonInterceptor.results` static variable.  
 
+## Debugging
+
+In complex cases, to make it easier for you to debug your interceptors, 
+you may print them to the console, with their names and z-indexes, by doing:
+
+```dart
+print(BackButtonInterceptor.describe());
+```
+  
+
 ## See also:
 
   * https://docs.flutter.io/flutter/widgets/WillPopScope-class.html

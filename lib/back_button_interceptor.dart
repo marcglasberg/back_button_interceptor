@@ -66,7 +66,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   }
 
   /// Trick explained here: https://github.com/flutter/flutter/issues/20451
-  /// Note 'ModalRoute.of(context).settings.name' doesn't always work.
+  /// Note `ModalRoute.of(context).settings.name` doesn't always work.
   static String getCurrentNavigatorRouteName(BuildContext context) {
     Route currentRoute;
     Navigator.popUntil(context, (route) {
@@ -139,6 +139,12 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static Future<void> _pushRoute(dynamic arguments) {
     return handlePushRouteFunction(arguments);
   }
+
+  /// Describes all interceptors, with their names and z-indexes.
+  /// This may help you debug your interceptors, by printing them
+  /// to the console, like this:
+  /// `print(BackButtonInterceptor.describe());`
+  static String describe() => _interceptors.join("\n");
 }
 
 typedef InterceptorFunction = bool Function(bool stopDefaultButtonEvent);
@@ -189,4 +195,8 @@ class _FunctionWithZIndex implements Comparable<_FunctionWithZIndex> {
     else
       return other.zIndex.compareTo(zIndex);
   }
+
+  @override
+  String toString() =>
+      'BackButtonInterceptor: $name, z-index: $zIndex (ifNotYetIntercepted: $ifNotYetIntercepted).';
 }
