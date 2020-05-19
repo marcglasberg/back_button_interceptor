@@ -1,3 +1,7 @@
+## [4.2.4] - 2020/05/19
+ 
+ * Docs improvement.
+
 ## [4.2.3] - 2019/12/18
 
 * BackButtonInterceptor.describe() to help debug complex interceptors.
