@@ -6,7 +6,7 @@ In simple cases, when you need to intercept the Android back-button, you usually
 to your widget tree. However, when developing stateful widgets that interact with the back button, 
 it's more convenient to use the `BackButtonInterceptor`.
 
-You may add functions to be called when the back button is tapped.
+You may add **interceptor functions** to be called when the back button is tapped.
 These functions may perform some useful work, and then, if any of them return true,
 the default button process (usually popping a Route) will not be fired.
 
@@ -15,7 +15,7 @@ the combined result is true, and the default button process will NOT be fired.
 Only if all functions return false (or null), the combined result is false,
 and the default button process will be fired. 
 
-Optionally, you may provide a z-index. Functions with a valid z-index will be called before 
+Optionally, you may provide a **z-index**. Functions with a valid z-index will be called before 
 functions with a null z-index, and functions with larger z-index will be called first. 
 When they have the same z-index, functions added last are called first.
 
@@ -29,15 +29,52 @@ The same result may be obtained if the optional `ifNotYetIntercepted` parameter 
 Then the function will only be called if all previous functions returned false 
 (that is, if `stopDefaultButtonEvent` is false).
 
-**Note:** After you've finished you MUST remove each function by calling the `remove()` method.
+### Notes
+* After you've finished you MUST remove each function by calling the `remove()` method.
 Alternatively, you may also provide a `name` when adding a function, and then later remove it
 by calling the `removeByName(name)` method.
 
-**Note:** If any of your interceptors throws an error, a message will be printed to the console,
-but the error will not be thrown. You can change the treatment of errors by changing the
-static `errorProcessing` field.
+* If any of your interceptors throw an error, the error message will be printed to the console,
+but the error thrown will be a general error with not much information. 
+You can change the treatment of errors by changing the static `errorProcessing` field.
 
-**Note:** If your functions need to know the current route in the navigator, you may use the helper
+* Your functions can also process information about routes 
+by using the function's `RouteInfo info` parameter. 
+To get the current route in the navigator, call `info.currentRoute(context)`.
+Also, `info.routeWhenAdded` contains the route that was the current one 
+when the interceptor was added through the `BackButtonInterceptor.add()` method. 
+
+* You can set up some function so that it only runs when the current route is 
+the same route of when the interceptor was created. To that end, you can use
+`info.ifRouteChanged()` method: 
+                         
+   ```dart
+   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {    
+     if (info.ifRouteChanged(context)) return false;
+     ...
+   }    
+   ```               
+  
+  This means the interceptor function is temporarily disabled while, 
+  for example, a dialog is open.             
+
+* You can set up some function so that it only runs in certain routes:
+                        
+   ```dart
+   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {    
+     if (["myRoute1", "myRoute2", "myRoute3"]
+        .contains(info.currentRoute(context))) return false;
+     ...
+   }    
+   ```               
+  
+
+* Both `info.routeWhenAdded` and `info.ifRouteChanged()` only work 
+if you passed the `context` parameter to the `BackButtonInterceptor.add()` method. 
+Otherwise, `info.routeWhenAdded` will be `null` and `info.ifRouteChanged()` 
+will thrown an error.
+
+* The current route can also be obtained by using the
 static method `BackButtonInterceptor.getCurrentNavigatorRouteName(context)`.
 
 ## Import the package
@@ -63,7 +100,7 @@ in your pubspec.yaml. Then, import it:
        super.dispose();
     }
     
-    bool myInterceptor(bool stopDefaultButtonEvent) {
+    bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
        print("BACK BUTTON!"); // Do some stuff.
        return true;
     }
@@ -83,7 +120,7 @@ in your pubspec.yaml. Then, import it:
        super.dispose();
     }
     
-    bool myInterceptor(bool stopDefaultButtonEvent) {
+    bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
        print("BACK BUTTON!"); // Do some stuff.
        return true;
     }
@@ -100,6 +137,7 @@ in your pubspec.yaml. Then, import it:
    The second screen has 3 red squares. 
    By tapping the Android back-button (or the "pop" button) each square turns blue, one by one. 
    Only when all squares are blue, tapping the back-button once more will return to the previous screen.
+   Also, if you click the "Open Dialog" button, the interceptors are disabled while the dialog is open.
 
 3. <a href="https://github.com/marcglasberg/back_button_interceptor/blob/master/example/test/main_complex_example_test.dart">main_complex_example_test</a>
    

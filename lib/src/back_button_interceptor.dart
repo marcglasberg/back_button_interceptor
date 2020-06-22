@@ -17,8 +17,10 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static final List<_FunctionWithZIndex> _interceptors = [];
   static final InterceptorResults results = InterceptorResults();
 
-  static Function(dynamic) errorProcessing =
-      (error) => print("The BackButtonInterceptor threw an ERROR: $error.");
+  static Function(dynamic) errorProcessing = (error) {
+    print("The BackButtonInterceptor threw an ERROR: $error.");
+    Future.delayed(Duration(), () => throw error);
+  };
 
   static Function handlePopRouteFunction = WidgetsBinding.instance.handlePopRoute;
 
@@ -41,9 +43,17 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     bool ifNotYetIntercepted = false,
     int zIndex,
     String name,
+    BuildContext context,
   }) {
     _interceptors.insert(
-        0, _FunctionWithZIndex(interceptorFunction, ifNotYetIntercepted, zIndex, name));
+        0,
+        _FunctionWithZIndex(
+          interceptorFunction,
+          ifNotYetIntercepted,
+          zIndex,
+          name,
+          context == null ? null : getCurrentNavigatorRouteName(context),
+        ));
     stableSort(_interceptors);
     SystemChannels.navigation.setMethodCallHandler(_handleNavigationInvocation);
   }
@@ -100,9 +110,9 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   /// Each function gets a boolean that indicates the current combined result
   /// from the previous functions.
   ///
-  /// Note: If the interceptor throws an error, a message will be printed to the console,
-  /// but the error will not be thrown. You can change the treatment of errors by changing the
-  /// static errorProcessing field.
+  /// Note: If the interceptor throws an error, a message will be printed to the
+  /// console, and a placeholder error will not be thrown. You can change the
+  /// treatment of errors by changing the static errorProcessing field.
   static Future popRoute() {
     bool stopDefaultButtonEvent = false;
 
@@ -117,7 +127,10 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
         var interceptor = interceptors[i];
 
         if (!interceptor.ifNotYetIntercepted || !stopDefaultButtonEvent) {
-          result = interceptor.interceptionFunction(stopDefaultButtonEvent);
+          result = interceptor.interceptionFunction(
+            stopDefaultButtonEvent,
+            RouteInfo(routeWhenAdded: interceptor.routeWhenAdded),
+          );
 
           results.results.add(InterceptorResult(interceptor.name, result));
         }
@@ -136,9 +149,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     }
   }
 
-  static Future<void> _pushRoute(dynamic arguments) {
-    return handlePushRouteFunction(arguments);
-  }
+  static Future<void> _pushRoute(dynamic arguments) => handlePushRouteFunction(arguments);
 
   /// Describes all interceptors, with their names and z-indexes.
   /// This may help you debug your interceptors, by printing them
@@ -147,7 +158,30 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static String describe() => _interceptors.join("\n");
 }
 
-typedef InterceptorFunction = bool Function(bool stopDefaultButtonEvent);
+typedef InterceptorFunction = bool Function(bool stopDefaultButtonEvent, RouteInfo routeInfo);
+
+class RouteInfo {
+  /// The current route when the interceptor was added
+  /// through the BackButtonInterceptor.add() method.
+  final String routeWhenAdded;
+
+  RouteInfo({
+    this.routeWhenAdded,
+  });
+
+  currentRoute(BuildContext context) => BackButtonInterceptor.getCurrentNavigatorRouteName(context);
+
+  /// This method can only be called if the context parameter was
+  /// passed to the BackButtonInterceptor.add() method.
+  bool ifRouteChanged(BuildContext context) {
+    if (routeWhenAdded == null)
+      throw AssertionError("The ifRouteChanged() method "
+          "can only be called if the context parameter was "
+          "passed to the BackButtonInterceptor.add() method.");
+
+    return currentRoute(context) != routeWhenAdded;
+  }
+}
 
 class InterceptorResult {
   String name;
@@ -176,12 +210,14 @@ class _FunctionWithZIndex implements Comparable<_FunctionWithZIndex> {
   final bool ifNotYetIntercepted;
   final int zIndex;
   final String name;
+  final String routeWhenAdded;
 
   _FunctionWithZIndex(
     this.interceptionFunction,
     this.ifNotYetIntercepted,
     this.zIndex,
     this.name,
+    this.routeWhenAdded,
   );
 
   @override

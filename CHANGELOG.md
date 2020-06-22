@@ -1,6 +1,17 @@
+## [4.3.0] - 2020/06/22
+ 
+* Breaking change: The interceptor functions now get a second 
+  parameter `RouteInfo info`. To upgrade from version [4.2.4] 
+  you just need to add this parameter to your functions (you 
+  have to add it, but you don't need to use it, unless you 
+  need the new functionalities it provides).
+  
+* Please read the "Notes" section of the README for more information
+  about the new `RouteInfo` parameter. 
+
 ## [4.2.4] - 2020/05/19
  
- * Docs improvement.
+* Docs improvement.
 
 ## [4.2.3] - 2019/12/18
 

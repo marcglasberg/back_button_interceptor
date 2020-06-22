@@ -83,8 +83,22 @@ class NewScreen extends StatelessWidget {
               onPressed: BackButtonInterceptor.popRoute,
               child: Text('Pop'),
             ),
+            RaisedButton(
+              onPressed: () => _openDialog(context),
+              child: Text('Open Dialog'),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _openDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      child: new AlertDialog(
+        title: new Text("My Dialog"),
+        content: new Text("Click outside to close it, or use the back-button."),
       ),
     );
   }
@@ -113,7 +127,7 @@ class _ContainerWithInterceptorState extends State<ContainerWithInterceptor> {
   void initState() {
     super.initState();
     ifPop = false;
-    BackButtonInterceptor.add(myInterceptor, name: widget.name);
+    BackButtonInterceptor.add(myInterceptor, name: widget.name, context: context);
   }
 
   @override
@@ -131,8 +145,11 @@ class _ContainerWithInterceptorState extends State<ContainerWithInterceptor> {
     );
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent) {
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
     if (stopDefaultButtonEvent) return false;
+
+    // If a dialog (or any other route) is open, don't run the interceptor.
+    if (info.ifRouteChanged(context)) return false;
 
     if (ifPop)
       return false;

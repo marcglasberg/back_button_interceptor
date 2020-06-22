@@ -10,6 +10,7 @@
    The second screen has 3 red squares. 
    By tapping the Android back-button (or the "pop" button) each square turns blue, one by one. 
    Only when all squares are blue, tapping the back-button once more will return to the previous screen.
+   Also, if you click the "Open Dialog" button, the interceptors are disabled while the dialog is open.
 
 3. <a href="https://github.com/marcglasberg/back_button_interceptor/blob/master/example/test/main_complex_example_test.dart">main_complex_example_test</a>
    
