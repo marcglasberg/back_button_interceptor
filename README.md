@@ -150,7 +150,9 @@ For testing purposes, the `BackButtonInterceptor.popRoute()` method may be calle
 to simulate pressing the back button. The list of all fired functions and their results is  
 recorded in the `BackButtonInterceptor.results` static variable.  
 
-If you have trouble running multiple tests that use the BackButtonInterceptor you should call `BackButtonInterceptor.removeAll();`, you can place that at your `setUp` function for example.
+_Note:_ You may want to add `BackButtonInterceptor.removeAll();` 
+to your test's `setUp` function,
+so that you remove old interceptors between tests.
 
 ## Debugging
 
