@@ -1,3 +1,7 @@
+## [4.3.1] - 2020/09/14
+
+* Docs improvement.
+
 ## [4.3.0] - 2020/06/22
  
 * Breaking change: The interceptor functions now get a second 
