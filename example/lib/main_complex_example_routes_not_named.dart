@@ -16,16 +16,22 @@ class AnotherExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: _createRoutes(),
+      // routes: _createRoutes(),
+      initialRoute: '/',
+      onGenerateRoute: (RouteSettings settings) => PageRouteBuilder(
+        barrierDismissible: true,
+        opaque: false,
+        pageBuilder: (context, _, __) => Home(),
+      ),
     );
   }
 
-  Map<String, WidgetBuilder> _createRoutes() {
-    return {
-      RoutePaths.main: (_) => Home(),
-      RoutePaths.newScreen: (_) => NewScreen(),
-    };
-  }
+// Map<String, WidgetBuilder> _createRoutes() {
+//   return {
+//     RoutePaths.main: (_) => Home(),
+//     RoutePaths.newScreen: (_) => NewScreen(),
+//   };
+// }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,8 +39,8 @@ class AnotherExample extends StatelessWidget {
 class RoutePaths {
   RoutePaths._();
 
-  static const main = '/';
-  static const newScreen = '/new-screen';
+// static const main = '/';
+// static const newScreen = '/new-screen';
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,17 +54,11 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Text(
-                "The first screen has a button which opens a second screen.\n\n"
-                "The second screen has 3 red squares. By tapping the Android back-button (or the 'pop' button) "
-                "each square turns blue, one by one.\n\n"
-                "Only when all squares are blue, tapping the back-button "
-                "once more will return to the previous screen.",
-                textAlign: TextAlign.center,
-              ),
+            Text(
+              "Same example,\nbut routes are not named.",
+              textAlign: TextAlign.center,
             ),
+            SizedBox(height: 40.0),
             RaisedButton(
               onPressed: () => openNewScreen(context),
               child: Text('Open new screen'),
@@ -69,7 +69,15 @@ class Home extends StatelessWidget {
     );
   }
 
-  void openNewScreen(BuildContext context) => Navigator.pushNamed(context, RoutePaths.newScreen);
+  // void openNewScreen(BuildContext context) => Navigator.pushNamed(context, RoutePaths.newScreen);
+  void openNewScreen(BuildContext context) => Navigator.push(
+        context,
+        PageRouteBuilder(
+          barrierDismissible: true,
+          opaque: false,
+          pageBuilder: (context, _, __) => NewScreen(),
+        ),
+      );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

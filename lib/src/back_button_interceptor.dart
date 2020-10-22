@@ -52,7 +52,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
           ifNotYetIntercepted,
           zIndex,
           name,
-          context == null ? null : getCurrentNavigatorRouteName(context),
+          context == null ? null : getCurrentNavigatorRoute(context),
         ));
     stableSort(_interceptors);
     SystemChannels.navigation.setMethodCallHandler(_handleNavigationInvocation);
@@ -77,14 +77,19 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
   /// Trick explained here: https://github.com/flutter/flutter/issues/20451
   /// Note `ModalRoute.of(context).settings.name` doesn't always work.
-  static String getCurrentNavigatorRouteName(BuildContext context) {
+  static Route getCurrentNavigatorRoute(BuildContext context) {
     Route currentRoute;
     Navigator.popUntil(context, (route) {
       currentRoute = route;
       return true;
     });
-    return currentRoute.settings.name;
+    return currentRoute;
   }
+
+  /// Trick explained here: https://github.com/flutter/flutter/issues/20451
+  /// Note `ModalRoute.of(context).settings.name` doesn't always work.
+  static String getCurrentNavigatorRouteName(BuildContext context) =>
+      getCurrentNavigatorRoute(context).settings.name;
 
   static Future<dynamic> _handleNavigationInvocation(MethodCall methodCall) async {
     // POP.
@@ -163,13 +168,12 @@ typedef InterceptorFunction = bool Function(bool stopDefaultButtonEvent, RouteIn
 class RouteInfo {
   /// The current route when the interceptor was added
   /// through the BackButtonInterceptor.add() method.
-  final String routeWhenAdded;
+  final Route routeWhenAdded;
 
-  RouteInfo({
-    this.routeWhenAdded,
-  });
+  RouteInfo({this.routeWhenAdded});
 
-  currentRoute(BuildContext context) => BackButtonInterceptor.getCurrentNavigatorRouteName(context);
+  Route currentRoute(BuildContext context) =>
+      BackButtonInterceptor.getCurrentNavigatorRoute(context);
 
   /// This method can only be called if the context parameter was
   /// passed to the BackButtonInterceptor.add() method.
@@ -179,7 +183,7 @@ class RouteInfo {
           "can only be called if the context parameter was "
           "passed to the BackButtonInterceptor.add() method.");
 
-    return currentRoute(context) != routeWhenAdded;
+    return !identical(currentRoute(context), routeWhenAdded);
   }
 }
 
@@ -210,7 +214,7 @@ class _FunctionWithZIndex implements Comparable<_FunctionWithZIndex> {
   final bool ifNotYetIntercepted;
   final int zIndex;
   final String name;
-  final String routeWhenAdded;
+  final Route routeWhenAdded;
 
   _FunctionWithZIndex(
     this.interceptionFunction,

@@ -1,3 +1,7 @@
+## [4.4.0] - 2020/10/22
+
+* Method ifRouteChanged() now works with named and unnamed routes.
+
 ## [4.3.1] - 2020/09/14
 
 * Docs improvement.
