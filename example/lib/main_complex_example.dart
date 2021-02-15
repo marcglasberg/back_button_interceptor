@@ -48,8 +48,8 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(50.0),
+            const Padding(
+              padding: EdgeInsets.all(50.0),
               child: Text(
                 "The first screen has a button which opens a second screen.\n\n"
                 "The second screen has 3 red squares. By tapping the Android back-button (or the 'pop' button) "
@@ -61,7 +61,7 @@ class Home extends StatelessWidget {
             ),
             RaisedButton(
               onPressed: () => openNewScreen(context),
-              child: Text('Open new screen'),
+              child: const Text('Open new screen'),
             ),
           ],
         ),
@@ -86,7 +86,7 @@ class NewScreen extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 ContainerWithInterceptor("first"),
                 SizedBox(width: 20),
                 ContainerWithInterceptor("second"),
@@ -94,14 +94,14 @@ class NewScreen extends StatelessWidget {
                 ContainerWithInterceptor("third"),
               ],
             ),
-            SizedBox(height: 40),
-            RaisedButton(
+            const SizedBox(height: 40),
+            const RaisedButton(
               onPressed: BackButtonInterceptor.popRoute,
               child: Text('Pop'),
             ),
             RaisedButton(
               onPressed: () => _openDialog(context),
-              child: Text('Open Dialog'),
+              child: const Text('Open Dialog'),
             ),
           ],
         ),
@@ -110,11 +110,11 @@ class NewScreen extends StatelessWidget {
   }
 
   void _openDialog(BuildContext context) {
-    showDialog(
+    showDialog<dynamic>(
       context: context,
-      child: new AlertDialog(
-        title: new Text("My Dialog"),
-        content: new Text("Click outside to close it, or use the back-button."),
+      builder: (context) => const AlertDialog(
+        title: Text("My Dialog"),
+        content: Text("Click outside to close it, or use the back-button."),
       ),
     );
   }
@@ -126,7 +126,7 @@ class ContainerWithInterceptor extends StatefulWidget {
   //
   final String name;
 
-  ContainerWithInterceptor(this.name);
+  const ContainerWithInterceptor(this.name);
 
   @override
   State createState() => _ContainerWithInterceptorState();

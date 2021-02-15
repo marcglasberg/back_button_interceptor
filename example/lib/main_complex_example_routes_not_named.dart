@@ -16,9 +16,10 @@ class AnotherExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // This is removed:
       // routes: _createRoutes(),
       initialRoute: '/',
-      onGenerateRoute: (RouteSettings settings) => PageRouteBuilder(
+      onGenerateRoute: (RouteSettings settings) => PageRouteBuilder<dynamic>(
         barrierDismissible: true,
         opaque: false,
         pageBuilder: (context, _, __) => Home(),
@@ -26,6 +27,7 @@ class AnotherExample extends StatelessWidget {
     );
   }
 
+// This is removed:
 // Map<String, WidgetBuilder> _createRoutes() {
 //   return {
 //     RoutePaths.main: (_) => Home(),
@@ -39,6 +41,7 @@ class AnotherExample extends StatelessWidget {
 class RoutePaths {
   RoutePaths._();
 
+// This is removed:
 // static const main = '/';
 // static const newScreen = '/new-screen';
 }
@@ -54,14 +57,14 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               "Same example,\nbut routes are not named.",
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 40.0),
+            const SizedBox(height: 40.0),
             RaisedButton(
               onPressed: () => openNewScreen(context),
-              child: Text('Open new screen'),
+              child: const Text('Open new screen'),
             ),
           ],
         ),
@@ -70,9 +73,9 @@ class Home extends StatelessWidget {
   }
 
   // void openNewScreen(BuildContext context) => Navigator.pushNamed(context, RoutePaths.newScreen);
-  void openNewScreen(BuildContext context) => Navigator.push(
+  void openNewScreen(BuildContext context) => Navigator.push<dynamic>(
         context,
-        PageRouteBuilder(
+        PageRouteBuilder<dynamic>(
           barrierDismissible: true,
           opaque: false,
           pageBuilder: (context, _, __) => NewScreen(),
@@ -94,7 +97,7 @@ class NewScreen extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 ContainerWithInterceptor("first"),
                 SizedBox(width: 20),
                 ContainerWithInterceptor("second"),
@@ -102,14 +105,14 @@ class NewScreen extends StatelessWidget {
                 ContainerWithInterceptor("third"),
               ],
             ),
-            SizedBox(height: 40),
-            RaisedButton(
+            const SizedBox(height: 40),
+            const RaisedButton(
               onPressed: BackButtonInterceptor.popRoute,
               child: Text('Pop'),
             ),
             RaisedButton(
               onPressed: () => _openDialog(context),
-              child: Text('Open Dialog'),
+              child: const  Text('Open Dialog'),
             ),
           ],
         ),
@@ -118,11 +121,11 @@ class NewScreen extends StatelessWidget {
   }
 
   void _openDialog(BuildContext context) {
-    showDialog(
+    showDialog<dynamic>(
       context: context,
-      child: new AlertDialog(
-        title: new Text("My Dialog"),
-        content: new Text("Click outside to close it, or use the back-button."),
+      builder: (context) => const AlertDialog(
+        title: Text("My Dialog"),
+        content: Text("Click outside to close it, or use the back-button."),
       ),
     );
   }
@@ -134,7 +137,7 @@ class ContainerWithInterceptor extends StatefulWidget {
   //
   final String name;
 
-  ContainerWithInterceptor(this.name);
+  const ContainerWithInterceptor(this.name);
 
   @override
   State createState() => _ContainerWithInterceptorState();

@@ -11,7 +11,7 @@
 /// This merge sort is stable: Equal elements end up in the same order
 /// as they started in.
 ///
-void stableSort<T>(List<T> list, {int start = 0, int end, int compare(T a, T b)}) {
+void stableSort<T>(List<T> list, {int start = 0, int end, int Function(T a, T b) compare}) {
   end ??= list.length;
   compare ??= defaultCompare<T>();
 
@@ -37,7 +37,7 @@ Comparator<T> defaultCompare<T>() => (value1, value2) => (value1 as Comparable).
 /// Limit below which merge sort defaults to insertion sort.
 const int _MERGE_SORT_LIMIT = 32;
 
-void _insertionSort<T>(List<T> list, {int compare(T a, T b), int start = 0, int end}) {
+void _insertionSort<T>(List<T> list, {int Function(T a, T b) compare, int start = 0, int end}) {
   compare ??= defaultCompare<T>();
   end ??= list.length;
 
@@ -60,7 +60,7 @@ void _insertionSort<T>(List<T> list, {int compare(T a, T b), int start = 0, int 
 }
 
 void _movingInsertionSort<T>(
-    List<T> list, int compare(T a, T b), int start, int end, List<T> target, int targetOffset) {
+    List<T> list, int Function(T a, T b) compare, int start, int end, List<T> target, int targetOffset) {
   int length = end - start;
   if (length == 0) return;
   target[targetOffset] = list[start];
@@ -82,7 +82,7 @@ void _movingInsertionSort<T>(
 }
 
 void _mergeSort<T>(
-    List<T> list, int compare(T a, T b), int start, int end, List<T> target, int targetOffset) {
+    List<T> list, int Function(T a, T b) compare, int start, int end, List<T> target, int targetOffset) {
   int length = end - start;
   if (length < _MERGE_SORT_LIMIT) {
     _movingInsertionSort(list, compare, start, end, target, targetOffset);
@@ -98,7 +98,7 @@ void _mergeSort<T>(
       targetMiddle + secondLength, target, targetOffset);
 }
 
-void _merge<T>(int compare(T a, T b), List<T> firstList, int firstStart, int firstEnd,
+void _merge<T>(int Function(T a, T b) compare, List<T> firstList, int firstStart, int firstEnd,
     List<T> secondList, int secondStart, int secondEnd, List<T> target, int targetOffset) {
   assert(firstStart < firstEnd);
   assert(secondStart < secondEnd);

@@ -17,14 +17,17 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static final List<_FunctionWithZIndex> _interceptors = [];
   static final InterceptorResults results = InterceptorResults();
 
-  static Function(dynamic) errorProcessing = (error) {
+  static Function(dynamic) errorProcessing = _errorProcessing;
+
+  static void _errorProcessing(dynamic error) {
     print("The BackButtonInterceptor threw an ERROR: $error.");
-    Future.delayed(Duration(), () => throw error);
-  };
+    Future.delayed(const Duration(), () => throw error);
+  }
 
-  static Function handlePopRouteFunction = WidgetsBinding.instance.handlePopRoute;
+  static Future<void> Function() handlePopRouteFunction = WidgetsBinding.instance.handlePopRoute;
 
-  static Function handlePushRouteFunction = WidgetsBinding.instance.handlePushRoute;
+  static Future<void> Function(String) handlePushRouteFunction =
+      WidgetsBinding.instance.handlePushRoute;
 
   /// Sets a function to be called when the back button is tapped.
   /// This function may perform some useful work, and then, if it returns true,
@@ -154,7 +157,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     }
   }
 
-  static Future<void> _pushRoute(dynamic arguments) => handlePushRouteFunction(arguments);
+  static Future<void> _pushRoute(dynamic arguments) => handlePushRouteFunction(arguments as String);
 
   /// Describes all interceptors, with their names and z-indexes.
   /// This may help you debug your interceptors, by printing them
