@@ -1,6 +1,7 @@
 library back_button_interceptor;
 
 import 'dart:async';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,17 +18,17 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static final List<_FunctionWithZIndex> _interceptors = [];
   static final InterceptorResults results = InterceptorResults();
 
-  static Function(dynamic) errorProcessing = _errorProcessing;
+  static Function(Object) errorProcessing = _errorProcessing;
 
-  static void _errorProcessing(dynamic error) {
+  static void _errorProcessing(Object error) {
     print("The BackButtonInterceptor threw an ERROR: $error.");
     Future.delayed(const Duration(), () => throw error);
   }
 
-  static Future<void> Function() handlePopRouteFunction = WidgetsBinding.instance.handlePopRoute;
+  static Future<void> Function() handlePopRouteFunction = WidgetsBinding.instance!.handlePopRoute;
 
-  static Future<void> Function(String) handlePushRouteFunction =
-      WidgetsBinding.instance.handlePushRoute;
+  static Future<void> Function(String?) handlePushRouteFunction =
+      WidgetsBinding.instance!.handlePushRoute as Future<void> Function(String?);
 
   /// Sets a function to be called when the back button is tapped.
   /// This function may perform some useful work, and then, if it returns true,
@@ -44,9 +45,9 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static void add(
     InterceptorFunction interceptorFunction, {
     bool ifNotYetIntercepted = false,
-    int zIndex,
-    String name,
-    BuildContext context,
+    int? zIndex,
+    String? name,
+    BuildContext? context,
   }) {
     _interceptors.insert(
         0,
@@ -69,7 +70,6 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
   /// Removes the function by name.
   static void removeByName(String name) {
-    assert(name != null);
     _interceptors.removeWhere((interceptor) => interceptor.name == name);
   }
 
@@ -80,8 +80,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
   /// Trick explained here: https://github.com/flutter/flutter/issues/20451
   /// Note `ModalRoute.of(context).settings.name` doesn't always work.
-  static Route getCurrentNavigatorRoute(BuildContext context) {
-    Route currentRoute;
+  static Route? getCurrentNavigatorRoute(BuildContext context) {
+    Route? currentRoute;
     Navigator.popUntil(context, (route) {
       currentRoute = route;
       return true;
@@ -91,8 +91,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
   /// Trick explained here: https://github.com/flutter/flutter/issues/20451
   /// Note `ModalRoute.of(context).settings.name` doesn't always work.
-  static String getCurrentNavigatorRouteName(BuildContext context) =>
-      getCurrentNavigatorRoute(context).settings.name;
+  static String? getCurrentNavigatorRouteName(BuildContext context) =>
+      getCurrentNavigatorRoute(context)!.settings.name;
 
   static Future<dynamic> _handleNavigationInvocation(MethodCall methodCall) async {
     // POP.
@@ -129,7 +129,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     List<_FunctionWithZIndex> interceptors = List.of(_interceptors);
 
     for (var i = 0; i < interceptors.length; i++) {
-      bool result;
+      bool? result;
 
       try {
         var interceptor = interceptors[i];
@@ -157,7 +157,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     }
   }
 
-  static Future<void> _pushRoute(dynamic arguments) => handlePushRouteFunction(arguments as String);
+  static Future<void> _pushRoute(dynamic arguments) => handlePushRouteFunction(arguments as String?);
 
   /// Describes all interceptors, with their names and z-indexes.
   /// This may help you debug your interceptors, by printing them
@@ -171,11 +171,11 @@ typedef InterceptorFunction = bool Function(bool stopDefaultButtonEvent, RouteIn
 class RouteInfo {
   /// The current route when the interceptor was added
   /// through the BackButtonInterceptor.add() method.
-  final Route routeWhenAdded;
+  final Route? routeWhenAdded;
 
   RouteInfo({this.routeWhenAdded});
 
-  Route currentRoute(BuildContext context) =>
+  Route? currentRoute(BuildContext context) =>
       BackButtonInterceptor.getCurrentNavigatorRoute(context);
 
   /// This method can only be called if the context parameter was
@@ -191,8 +191,8 @@ class RouteInfo {
 }
 
 class InterceptorResult {
-  String name;
-  bool stopDefaultButtonEvent;
+  String? name;
+  bool? stopDefaultButtonEvent;
 
   InterceptorResult(this.name, this.stopDefaultButtonEvent);
 }
@@ -208,16 +208,16 @@ class InterceptorResults {
     count++;
   }
 
-  InterceptorResult getNamed(String name) =>
-      results.firstWhere((result) => result.name == name, orElse: () => null);
+  InterceptorResult? getNamed(String name) =>
+      results.firstWhereOrNull((result) => result.name == name);
 }
 
 class _FunctionWithZIndex implements Comparable<_FunctionWithZIndex> {
   final InterceptorFunction interceptionFunction;
   final bool ifNotYetIntercepted;
-  final int zIndex;
-  final String name;
-  final Route routeWhenAdded;
+  final int? zIndex;
+  final String? name;
+  final Route? routeWhenAdded;
 
   _FunctionWithZIndex(
     this.interceptionFunction,
@@ -236,7 +236,7 @@ class _FunctionWithZIndex implements Comparable<_FunctionWithZIndex> {
     else if (zIndex != null && other.zIndex == null)
       return -1;
     else
-      return other.zIndex.compareTo(zIndex);
+      return other.zIndex!.compareTo(zIndex!);
   }
 
   @override

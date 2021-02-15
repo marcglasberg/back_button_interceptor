@@ -135,7 +135,7 @@ class ContainerWithInterceptor extends StatefulWidget {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class _ContainerWithInterceptorState extends State<ContainerWithInterceptor> {
-  bool ifPop;
+  bool ifPop = false;
 
   void pop() => setState(() => ifPop = true);
 

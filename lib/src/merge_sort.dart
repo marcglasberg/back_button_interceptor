@@ -11,9 +11,9 @@
 /// This merge sort is stable: Equal elements end up in the same order
 /// as they started in.
 ///
-void stableSort<T>(List<T> list, {int start = 0, int end, int Function(T a, T b) compare}) {
+void stableSort<T>(List<T> list, {int start = 0, int? end, int Function(T a, T b)? compare}) {
   end ??= list.length;
-  compare ??= defaultCompare<T>();
+  compare ??= defaultCompare<T?>();
 
   int length = end - start;
   if (length < 2) return;
@@ -24,7 +24,7 @@ void stableSort<T>(List<T> list, {int start = 0, int end, int Function(T a, T b)
   int middle = start + ((end - start) >> 1);
   int firstLength = middle - start;
   int secondLength = end - middle;
-  var scratchSpace = List<T>(secondLength);
+  var scratchSpace = List<T>.filled(secondLength, list[start]);
   _mergeSort(list, compare, middle, end, scratchSpace, 0);
   int firstTarget = end - firstLength;
   _mergeSort(list, compare, start, middle, list, firstTarget);
@@ -37,7 +37,7 @@ Comparator<T> defaultCompare<T>() => (value1, value2) => (value1 as Comparable).
 /// Limit below which merge sort defaults to insertion sort.
 const int _MERGE_SORT_LIMIT = 32;
 
-void _insertionSort<T>(List<T> list, {int Function(T a, T b) compare, int start = 0, int end}) {
+void _insertionSort<T>(List<T> list, {int Function(T a, T b)? compare, int start = 0, int? end}) {
   compare ??= defaultCompare<T>();
   end ??= list.length;
 
@@ -59,8 +59,8 @@ void _insertionSort<T>(List<T> list, {int Function(T a, T b) compare, int start 
   }
 }
 
-void _movingInsertionSort<T>(
-    List<T> list, int Function(T a, T b) compare, int start, int end, List<T> target, int targetOffset) {
+void _movingInsertionSort<T>(List<T> list, int Function(T a, T b) compare, int start, int end,
+    List<T> target, int targetOffset) {
   int length = end - start;
   if (length == 0) return;
   target[targetOffset] = list[start];
@@ -81,8 +81,8 @@ void _movingInsertionSort<T>(
   }
 }
 
-void _mergeSort<T>(
-    List<T> list, int Function(T a, T b) compare, int start, int end, List<T> target, int targetOffset) {
+void _mergeSort<T>(List<T> list, int Function(T a, T b) compare, int start, int end, List<T> target,
+    int targetOffset) {
   int length = end - start;
   if (length < _MERGE_SORT_LIMIT) {
     _movingInsertionSort(list, compare, start, end, target, targetOffset);
