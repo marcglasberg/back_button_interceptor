@@ -31,9 +31,9 @@ void main() {
     expect(interceptorResults.count, 1);
     expect(interceptorResults.ifDefaultButtonEventWasFired, false);
 
-    expect(interceptorResults.getNamed('first').stopDefaultButtonEvent, false);
-    expect(interceptorResults.getNamed('second').stopDefaultButtonEvent, false);
-    expect(interceptorResults.getNamed('third').stopDefaultButtonEvent, true);
+    expect(interceptorResults.getNamed('first')!.stopDefaultButtonEvent, false);
+    expect(interceptorResults.getNamed('second')!.stopDefaultButtonEvent, false);
+    expect(interceptorResults.getNamed('third')!.stopDefaultButtonEvent, true);
 
     // Tap #2 --------------
     await tester.tap(newScreenButtonFinder);
@@ -42,9 +42,9 @@ void main() {
     expect(interceptorResults.count, 2);
     expect(interceptorResults.ifDefaultButtonEventWasFired, false);
 
-    expect(interceptorResults.getNamed('first').stopDefaultButtonEvent, false);
-    expect(interceptorResults.getNamed('second').stopDefaultButtonEvent, true);
-    expect(interceptorResults.getNamed('third').stopDefaultButtonEvent, false);
+    expect(interceptorResults.getNamed('first')!.stopDefaultButtonEvent, false);
+    expect(interceptorResults.getNamed('second')!.stopDefaultButtonEvent, true);
+    expect(interceptorResults.getNamed('third')!.stopDefaultButtonEvent, false);
 
     // Tap #3 --------------
     await tester.tap(newScreenButtonFinder);
@@ -53,9 +53,9 @@ void main() {
     expect(interceptorResults.count, 3);
     expect(interceptorResults.ifDefaultButtonEventWasFired, false);
 
-    expect(interceptorResults.getNamed('first').stopDefaultButtonEvent, true);
-    expect(interceptorResults.getNamed('second').stopDefaultButtonEvent, false);
-    expect(interceptorResults.getNamed('third').stopDefaultButtonEvent, false);
+    expect(interceptorResults.getNamed('first')!.stopDefaultButtonEvent, true);
+    expect(interceptorResults.getNamed('second')!.stopDefaultButtonEvent, false);
+    expect(interceptorResults.getNamed('third')!.stopDefaultButtonEvent, false);
 
     // Tap #4 --------------
     await tester.tap(newScreenButtonFinder);
@@ -64,8 +64,8 @@ void main() {
     expect(interceptorResults.count, 4);
     expect(interceptorResults.ifDefaultButtonEventWasFired, true);
 
-    expect(interceptorResults.getNamed('first').stopDefaultButtonEvent, false);
-    expect(interceptorResults.getNamed('second').stopDefaultButtonEvent, false);
-    expect(interceptorResults.getNamed('third').stopDefaultButtonEvent, false);
+    expect(interceptorResults.getNamed('first')!.stopDefaultButtonEvent, false);
+    expect(interceptorResults.getNamed('second')!.stopDefaultButtonEvent, false);
+    expect(interceptorResults.getNamed('third')!.stopDefaultButtonEvent, false);
   });
 }

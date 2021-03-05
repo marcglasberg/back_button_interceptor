@@ -2,7 +2,7 @@
 /// Sorts a list between [start] (inclusive) and [end] (exclusive) using the
 /// merge sort algorithm.
 /// If [compare] is omitted, this defaults to calling [Comparable.compareTo] on
-/// the objects. If any object is not [Comparable], this throws a [CastError].
+/// the objects. If any object is not [Comparable], this throws a [TypeError].
 /// Merge-sorting works by splitting the job into two parts, sorting each
 /// recursively, and then merging the two sorted parts.
 /// This takes on the order of `n * log(n)` comparisons and moves to sort

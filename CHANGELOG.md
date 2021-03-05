@@ -1,3 +1,11 @@
+## [5.0.0] - 2021/03/05
+
+* Nullsafety.
+
+## [4.4.2] - 2020/02/15
+
+* Small improvements.
+
 ## [4.4.2] - 2020/02/15
 
 * Small improvements.
