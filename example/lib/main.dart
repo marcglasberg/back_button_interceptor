@@ -22,7 +22,7 @@ class DemoState extends State<Demo> {
     super.dispose();
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  bool myInterceptor(RouteInfo info, {required bool stopDefaultButtonEvent}) {
     print("BACK BUTTON!"); // Do some stuff.
     return true;
   }

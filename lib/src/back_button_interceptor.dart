@@ -25,10 +25,11 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     Future.delayed(const Duration(), () => throw error);
   }
 
-  static Future<void> Function() handlePopRouteFunction = WidgetsBinding.instance!.handlePopRoute;
+  static Future<void> Function() handlePopRouteFunction =
+      WidgetsBinding.instance!.handlePopRoute;
 
-  static Future<void> Function(String?) handlePushRouteFunction =
-      WidgetsBinding.instance!.handlePushRoute as Future<void> Function(String?);
+  static Future<void> Function(String?) handlePushRouteFunction = WidgetsBinding
+      .instance!.handlePushRoute as Future<void> Function(String?);
 
   /// Sets a function to be called when the back button is tapped.
   /// This function may perform some useful work, and then, if it returns true,
@@ -64,8 +65,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
   /// Removes the function.
   static void remove(InterceptorFunction interceptorFunction) {
-    _interceptors
-        .removeWhere((interceptor) => interceptor.interceptionFunction == interceptorFunction);
+    _interceptors.removeWhere((interceptor) =>
+        interceptor.interceptionFunction == interceptorFunction);
   }
 
   /// Removes the function by name.
@@ -94,7 +95,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static String? getCurrentNavigatorRouteName(BuildContext context) =>
       getCurrentNavigatorRoute(context)!.settings.name;
 
-  static Future<dynamic> _handleNavigationInvocation(MethodCall methodCall) async {
+  static Future<dynamic> _handleNavigationInvocation(
+      MethodCall methodCall) async {
     // POP.
     if (methodCall.method == 'popRoute')
       return popRoute();
@@ -136,8 +138,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
         if (!interceptor.ifNotYetIntercepted || !stopDefaultButtonEvent) {
           result = interceptor.interceptionFunction(
-            stopDefaultButtonEvent,
             RouteInfo(routeWhenAdded: interceptor.routeWhenAdded),
+            stopDefaultButtonEvent: stopDefaultButtonEvent,
           );
 
           results.results.add(InterceptorResult(interceptor.name, result));
@@ -157,7 +159,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     }
   }
 
-  static Future<void> _pushRoute(dynamic arguments) => handlePushRouteFunction(arguments as String?);
+  static Future<void> _pushRoute(dynamic arguments) =>
+      handlePushRouteFunction(arguments as String?);
 
   /// Describes all interceptors, with their names and z-indexes.
   /// This may help you debug your interceptors, by printing them
@@ -166,7 +169,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static String describe() => _interceptors.join("\n");
 }
 
-typedef InterceptorFunction = bool Function(bool stopDefaultButtonEvent, RouteInfo routeInfo);
+typedef InterceptorFunction = bool Function(RouteInfo routeInfo,
+    {required bool stopDefaultButtonEvent});
 
 class RouteInfo {
   /// The current route when the interceptor was added
