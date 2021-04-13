@@ -69,7 +69,8 @@ class Home extends StatelessWidget {
     );
   }
 
-  void openNewScreen(BuildContext context) => Navigator.pushNamed(context, RoutePaths.newScreen);
+  void openNewScreen(BuildContext context) =>
+      Navigator.pushNamed(context, RoutePaths.newScreen);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -143,7 +144,8 @@ class _ContainerWithInterceptorState extends State<ContainerWithInterceptor> {
   void initState() {
     super.initState();
     ifPop = false;
-    BackButtonInterceptor.add(myInterceptor, name: widget.name, context: context);
+    BackButtonInterceptor.add(myInterceptor,
+        name: widget.name, context: context);
   }
 
   @override
@@ -161,7 +163,7 @@ class _ContainerWithInterceptorState extends State<ContainerWithInterceptor> {
     );
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  bool myInterceptor(RouteInfo info, {required bool stopDefaultButtonEvent}) {
     if (stopDefaultButtonEvent) return false;
 
     // If a dialog (or any other route) is open, don't run the interceptor.

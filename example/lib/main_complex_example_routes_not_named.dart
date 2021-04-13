@@ -112,7 +112,7 @@ class NewScreen extends StatelessWidget {
             ),
             RaisedButton(
               onPressed: () => _openDialog(context),
-              child: const  Text('Open Dialog'),
+              child: const Text('Open Dialog'),
             ),
           ],
         ),
@@ -154,7 +154,8 @@ class _ContainerWithInterceptorState extends State<ContainerWithInterceptor> {
   void initState() {
     super.initState();
     ifPop = false;
-    BackButtonInterceptor.add(myInterceptor, name: widget.name, context: context);
+    BackButtonInterceptor.add(myInterceptor,
+        name: widget.name, context: context);
   }
 
   @override
@@ -172,7 +173,7 @@ class _ContainerWithInterceptorState extends State<ContainerWithInterceptor> {
     );
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  bool myInterceptor(RouteInfo info, {required bool stopDefaultButtonEvent}) {
     if (stopDefaultButtonEvent) return false;
 
     // If a dialog (or any other route) is open, don't run the interceptor.
