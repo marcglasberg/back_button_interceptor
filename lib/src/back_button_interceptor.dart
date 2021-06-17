@@ -1,6 +1,7 @@
 library back_button_interceptor;
 
 import 'dart:async';
+
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -121,7 +122,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   /// Note: If the interceptor throws an error, a message will be printed to the
   /// console, and a placeholder error will not be thrown. You can change the
   /// treatment of errors by changing the static errorProcessing field.
-  static Future popRoute() {
+  static Future popRoute() async {
     bool stopDefaultButtonEvent = false;
 
     results.clear();
@@ -135,10 +136,17 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
         var interceptor = interceptors[i];
 
         if (!interceptor.ifNotYetIntercepted || !stopDefaultButtonEvent) {
-          result = interceptor.interceptionFunction(
+          FutureOr<bool> _result = interceptor.interceptionFunction(
             stopDefaultButtonEvent,
             RouteInfo(routeWhenAdded: interceptor.routeWhenAdded),
           );
+
+          if (_result is bool)
+            result = _result;
+          else if (_result is Future<bool>)
+            result = await _result;
+          else
+            throw AssertionError(_result.runtimeType);
 
           results.results.add(InterceptorResult(interceptor.name, result));
         }
@@ -157,7 +165,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     }
   }
 
-  static Future<void> _pushRoute(dynamic arguments) => handlePushRouteFunction(arguments as String?);
+  static Future<void> _pushRoute(dynamic arguments) =>
+      handlePushRouteFunction(arguments as String?);
 
   /// Describes all interceptors, with their names and z-indexes.
   /// This may help you debug your interceptors, by printing them
@@ -166,7 +175,10 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static String describe() => _interceptors.join("\n");
 }
 
-typedef InterceptorFunction = bool Function(bool stopDefaultButtonEvent, RouteInfo routeInfo);
+typedef InterceptorFunction = FutureOr<bool> Function(
+  bool stopDefaultButtonEvent,
+  RouteInfo routeInfo,
+);
 
 class RouteInfo {
   /// The current route when the interceptor was added

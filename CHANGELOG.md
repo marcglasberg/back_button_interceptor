@@ -1,3 +1,8 @@
+## [5.0.1] - 2021/06/17
+
+* Now the interceptor function can return `bool` or `Future<bool>`:  
+  `typedef InterceptorFunction = FutureOr<bool> Function(bool stopDefaultButtonEvent, RouteInfo routeInfo);`
+
 ## [5.0.0] - 2021/03/05
 
 * Nullsafety.

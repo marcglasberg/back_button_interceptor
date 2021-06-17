@@ -2,7 +2,8 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 
 // When pressing the back-button, a message will be printed to the console,
-// and no back action will happen.
+// and no back action will happen. In this case, the interceptor function is
+// a Future.
 
 void main() => runApp(MaterialApp(home: Demo()));
 
@@ -25,8 +26,11 @@ class DemoState extends State<Demo> {
     super.dispose();
   }
 
-  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  Future<bool> myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) async {
     print("BACK BUTTON!"); // Do some stuff.
+    print("Waiting..."); // Do some stuff.
+    await Future<dynamic>.delayed(const Duration(seconds: 2));
+    print("Finished waiting."); // Do some stuff.
     return true;
   }
 
