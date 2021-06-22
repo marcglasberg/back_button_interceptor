@@ -59,7 +59,7 @@ class Home extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () => openNewScreen(context),
               child: const Text('Open new screen'),
             ),
@@ -95,11 +95,11 @@ class NewScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 40),
-            const RaisedButton(
+            const ElevatedButton(
               onPressed: BackButtonInterceptor.popRoute,
               child: Text('Pop'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () => _openDialog(context),
               child: const Text('Open Dialog'),
             ),

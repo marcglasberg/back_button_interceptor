@@ -12,7 +12,7 @@ void main() {
     await tester.pumpWidget(AnotherExample());
 
     // Tap 'Open new screen' button to open NewScreen.
-    Finder homeButtonFinder = find.widgetWithText(RaisedButton, 'Open new screen');
+    Finder homeButtonFinder = find.widgetWithText(ElevatedButton, 'Open new screen');
     expect(homeButtonFinder, isNotNull);
 
     await tester.tap(homeButtonFinder);
@@ -20,7 +20,7 @@ void main() {
 
     // ---
 
-    Finder newScreenButtonFinder = find.widgetWithText(RaisedButton, 'Pop');
+    Finder newScreenButtonFinder = find.widgetWithText(ElevatedButton, 'Pop');
     expect(newScreenButtonFinder, isNotNull);
 
     // Tap #1 --------------
