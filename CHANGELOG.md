@@ -1,3 +1,7 @@
+## [5.0.2] - 2020/09/20
+
+* Docs improvement.
+
 ## [5.0.1] - 2021/06/17
 
 * Now the interceptor function can return `bool` or `Future<bool>`:  
