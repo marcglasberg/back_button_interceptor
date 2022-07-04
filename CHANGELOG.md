@@ -1,14 +1,18 @@
-## [6.0.0] - 2020/05/13
+## [6.0.1] - 2020/05/13
                      
-* Flutter 3.0 
+* Flutter 3.0
+
+## [6.0.0] - 2020/05/13
+
+* Don't use this version with Flutter <3.0.
 
 ## [5.1.0] - 2020/05/12
 
-* Don't use this one.
+* Don't use this version.
 
 ## [5.0.2] - 2020/09/20
 
-* Docs improvement.
+* Docs improvement. This is the version you should use with Flutter <3.0. 
 
 ## [5.0.1] - 2021/06/17
 
