@@ -31,18 +31,26 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static Future<void> Function(String?) handlePushRouteFunction =
       WidgetsBinding.instance.handlePushRoute as Future<void> Function(String?);
 
-  /// Sets a function to be called when the back button is tapped.
-  /// This function may perform some useful work, and then, if it returns true,
-  /// the default button process (usually popping a Route) will not be fired.
+  /// Sets a function of type [InterceptorFunction] to be called when the back button is tapped.
+  /// This function may perform some useful work, and then, if it returns `true`,
+  /// the default button process (usually popping a Route) will NOT be fired.
   ///
   /// Functions added last are called first.
   ///
   /// If the optional [ifNotYetIntercepted] parameter is true, then the function will only be
-  /// called if all previous functions returned false (that is, stopDefaultButtonEvent is false).
+  /// called if all previous functions returned `false` (that is, `stopDefaultButtonEvent` is
+  /// `false`).
   ///
-  /// Optionally, you may provide a z-index. Functions with a valid z-index will be called before
+  /// Optionally, you may provide a [zIndex]. Functions with a valid z-index will be called before
   /// functions with a null z-index, and functions with larger z-index will be called first.
   /// When they have the same z-index, functions added last are called first.
+  ///
+  /// Optionally, you may provide a [name]. This is useful if you later want to removes the
+  /// function by name by using the [removeByName] method.
+  ///
+  /// You can also provide the current [context]. That's optional, and you only need to do this if
+  /// later you want to use [RouteInfo.ifRouteChanged].
+  ///
   static void add(
     InterceptorFunction interceptorFunction, {
     bool ifNotYetIntercepted = false,
@@ -57,19 +65,52 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
           ifNotYetIntercepted,
           zIndex,
           name,
-          context == null ? null : getCurrentNavigatorRoute(context),
+          (context == null) ? null : getCurrentNavigatorRoute(context),
         ));
     stableSort(_interceptors);
     SystemChannels.navigation.setMethodCallHandler(_handleNavigationInvocation);
   }
 
-  /// Removes the function.
+  /// Removes the function, by reference.
+  /// Example:
+  ///
+  /// ```
+  /// void initState() {
+  ///    super.initState();
+  ///    BackButtonInterceptor.add(_onBackButton, context: context);
+  /// }
+  ///
+  /// void dispose() {
+  ///    BackButtonInterceptor.remove(_onBackButton);
+  ///    super.dispose();
+  /// }
+  ///
+  /// bool _onBackButton(bool stopDefaultButtonEvent, RouteInfo info) { ... }
+  /// ```
+  ///
   static void remove(InterceptorFunction interceptorFunction) {
     _interceptors
         .removeWhere((interceptor) => interceptor.interceptionFunction == interceptorFunction);
   }
 
-  /// Removes the function by name.
+  /// Removes the function, by name.
+  /// Example:
+  ///
+  /// ```
+  /// void initState() {
+  ///    super.initState();
+  ///    BackButtonInterceptor.add(_onBackButton, context: context, name: 'myInterceptor');
+  /// }
+  ///
+  /// void dispose() {
+  ///    BackButtonInterceptor.removeByName('myInterceptor');
+  ///    super.dispose();
+  /// }
+  ///
+  /// bool _onBackButton(bool stopDefaultButtonEvent, RouteInfo info) { ... }
+  /// ```
+  ///
+
   static void removeByName(String name) {
     _interceptors.removeWhere((interceptor) => interceptor.name == name);
   }
