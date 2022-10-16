@@ -77,7 +77,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   /// ```
   /// void initState() {
   ///    super.initState();
-  ///    BackButtonInterceptor.add(_onBackButton, context: context);
+  ///    BackButtonInterceptor.add(_onBackButton);
   /// }
   ///
   /// void dispose() {
@@ -99,7 +99,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   /// ```
   /// void initState() {
   ///    super.initState();
-  ///    BackButtonInterceptor.add(_onBackButton, context: context, name: 'myInterceptor');
+  ///    BackButtonInterceptor.add(_onBackButton, name: 'myInterceptor');
   /// }
   ///
   /// void dispose() {
@@ -110,12 +110,29 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   /// bool _onBackButton(bool stopDefaultButtonEvent, RouteInfo info) { ... }
   /// ```
   ///
-
   static void removeByName(String name) {
     _interceptors.removeWhere((interceptor) => interceptor.name == name);
   }
 
   /// Removes all functions.
+  /// Example:
+  ///
+  /// ```
+  /// void initState() {
+  ///    super.initState();
+  ///    BackButtonInterceptor.add(_onBackButton);
+  /// }
+  ///
+  /// void dispose() {
+  ///    // Not recommended, because it will remove all functions,
+  ///    // not only the one created above.
+  ///    BackButtonInterceptor.removeAll();
+  ///    super.dispose();
+  /// }
+  ///
+  /// bool _onBackButton(bool stopDefaultButtonEvent, RouteInfo info) { ... }
+  /// ```
+  ///
   static void removeAll() {
     _interceptors.clear();
   }
