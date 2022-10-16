@@ -26,8 +26,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     Future.delayed(const Duration(), () => throw error);
   }
 
-  static Future<void> Function() handlePopRouteFunction =
-      WidgetsBinding.instance.handlePopRoute;
+  static Future<void> Function() handlePopRouteFunction = WidgetsBinding.instance.handlePopRoute;
 
   static Future<void> Function(String?) handlePushRouteFunction =
       WidgetsBinding.instance.handlePushRoute as Future<void> Function(String?);
@@ -66,8 +65,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
   /// Removes the function.
   static void remove(InterceptorFunction interceptorFunction) {
-    _interceptors.removeWhere((interceptor) =>
-        interceptor.interceptionFunction == interceptorFunction);
+    _interceptors
+        .removeWhere((interceptor) => interceptor.interceptionFunction == interceptorFunction);
   }
 
   /// Removes the function by name.
@@ -96,8 +95,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static String? getCurrentNavigatorRouteName(BuildContext context) =>
       getCurrentNavigatorRoute(context)!.settings.name;
 
-  static Future<dynamic> _handleNavigationInvocation(
-      MethodCall methodCall) async {
+  static Future<dynamic> _handleNavigationInvocation(MethodCall methodCall) async {
     // POP.
     if (methodCall.method == 'popRoute')
       return popRoute();
@@ -145,6 +143,7 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
           if (_result is bool)
             result = _result;
+          // ignore: unnecessary_type_check
           else if (_result is Future<bool>)
             result = await _result;
           else
@@ -182,7 +181,13 @@ typedef InterceptorFunction = FutureOr<bool> Function(
   RouteInfo routeInfo,
 );
 
+/// Your functions can also process information about routes by using the function's RouteInfo info
+/// parameter. To get the current route in the navigator, call `info.currentRoute(context)`.
+/// Also, `info.routeWhenAdded` contains the route that was the current one when the interceptor
+/// was added through the `BackButtonInterceptor.add()` method.
 class RouteInfo {
+  //
+
   /// The current route when the interceptor was added
   /// through the BackButtonInterceptor.add() method.
   final Route? routeWhenAdded;
@@ -192,8 +197,20 @@ class RouteInfo {
   Route? currentRoute(BuildContext context) =>
       BackButtonInterceptor.getCurrentNavigatorRoute(context);
 
-  /// This method can only be called if the context parameter was
-  /// passed to the BackButtonInterceptor.add() method.
+  /// Return true if the current route is NOT the same route of when the interceptor was created.
+  ///
+  /// This is useful if you want to create an interceptor that only runs when the current route is
+  /// the same route of when the interceptor was created:
+  /// ```
+  /// bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+  ///    if (info.ifRouteChanged(context)) return false;
+  ///    ...
+  ///  }
+  /// ```
+  ///
+  /// This method can only be called if the [context] parameter was
+  /// passed to the [BackButtonInterceptor.add] method.
+  ///
   bool ifRouteChanged(BuildContext context) {
     if (routeWhenAdded == null)
       throw AssertionError("The ifRouteChanged() method "
