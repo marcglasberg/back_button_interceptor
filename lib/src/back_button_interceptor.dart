@@ -1,3 +1,5 @@
+// Developed by Marcelo Glasberg (2019) https://glasberg.dev and https://github.com/marcglasberg
+// For more info, see: https://pub.dartlang.org/packages/back_button_interceptor
 library back_button_interceptor;
 
 import 'dart:async';
@@ -7,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'merge_sort.dart';
-
-// Developed by Marcelo Glasberg (jan 2019).
 
 /// When you need to intercept the Android back-button, you usually add `WillPopScope` to your
 /// widget tree. However, under some use cases, specially when developing stateful widgets that

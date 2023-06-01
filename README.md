@@ -7,12 +7,15 @@ to your widget tree. However, when developing stateful widgets that interact wit
 it's more convenient to use the `BackButtonInterceptor`.
 
 You may add **interceptor functions** to be called when the back button is tapped. These functions
-may perform some useful work, and then, if any of them return true, the default button process (
-usually popping a Route) will not be fired.
+may perform some useful work, and then, if any of them return `true`, the default button process
+(usually popping a Route) will not be fired.
 
-In more detail: All added functions are called, in order. If any function returns true, the combined
-result is true, and the default button process will NOT be fired. Only if all functions return
-false (or null), the combined result is false, and the default button process will be fired.
+<br>
+
+In more detail: All added functions are called, in order. If any function returns `true`, the
+combined result is `true`, and the default button process will NOT be fired. Only if all functions
+return `false` (or `null`), the combined result is `false`, and the default button process will be
+fired.
 
 Optionally, you may provide a **z-index**. Functions with a valid z-index will be called before
 functions with a null z-index, and functions with larger z-index will be called first. When they

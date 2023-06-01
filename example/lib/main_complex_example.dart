@@ -1,3 +1,5 @@
+// Developed by Marcelo Glasberg (2019) https://glasberg.dev and https://github.com/marcglasberg
+// For more info, see: https://pub.dartlang.org/packages/back_button_interceptor
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +11,6 @@ import 'package:flutter/material.dart';
 /// Please see tests at: back_button_interceptor/test/complex_example/main_test.dart
 ///
 void main() => runApp(AnotherExample());
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class AnotherExample extends StatelessWidget {
   @override
@@ -28,16 +28,12 @@ class AnotherExample extends StatelessWidget {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 class RoutePaths {
   RoutePaths._();
 
   static const main = '/';
   static const newScreen = '/new-screen';
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class Home extends StatelessWidget {
   @override
@@ -71,8 +67,6 @@ class Home extends StatelessWidget {
 
   void openNewScreen(BuildContext context) => Navigator.pushNamed(context, RoutePaths.newScreen);
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class NewScreen extends StatelessWidget {
   //
@@ -120,8 +114,6 @@ class NewScreen extends StatelessWidget {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 class ContainerWithInterceptor extends StatefulWidget {
   //
   final String name;
@@ -131,8 +123,6 @@ class ContainerWithInterceptor extends StatefulWidget {
   @override
   State createState() => _ContainerWithInterceptorState();
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class _ContainerWithInterceptorState extends State<ContainerWithInterceptor> {
   bool ifPop = false;
