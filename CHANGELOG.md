@@ -1,9 +1,16 @@
+## [7.0.0] - 2023/08/10
+
+* When your interceptor throws an error, you now also get its stacktrace. This is a breaking change
+  only if you define your own `errorProcessing` function. If that's the case and your code breaks,
+  simply change the signature of your error processing function
+  from `static Function(Object)` to `static Function(Object, StackTrace)`.
+
 ## [6.0.2] - 2020/09/20
 
 * Docs improvement.
 
 ## [6.0.1] - 2020/05/13
-                     
+
 * Flutter 3.0
 
 ## [6.0.0] - 2020/05/13
@@ -16,7 +23,7 @@
 
 ## [5.0.2] - 2020/09/20
 
-* Docs improvement. This is the version you should use with Flutter <3.0. 
+* Docs improvement. This is the version you should use with Flutter <3.0.
 
 ## [5.0.1] - 2021/06/17
 
@@ -44,18 +51,18 @@
 * Docs improvement.
 
 ## [4.3.0] - 2020/06/22
- 
-* Breaking change: The interceptor functions now get a second 
-  parameter `RouteInfo info`. To upgrade from version [4.2.4] 
-  you just need to add this parameter to your functions (you 
-  have to add it, but you don't need to use it, unless you 
+
+* Breaking change: The interceptor functions now get a second
+  parameter `RouteInfo info`. To upgrade from version [4.2.4]
+  you just need to add this parameter to your functions (you
+  have to add it, but you don't need to use it, unless you
   need the new functionalities it provides).
-  
+
 * Please read the "Notes" section of the README for more information
-  about the new `RouteInfo` parameter. 
+  about the new `RouteInfo` parameter.
 
 ## [4.2.4] - 2020/05/19
- 
+
 * Docs improvement.
 
 ## [4.2.3] - 2019/12/18

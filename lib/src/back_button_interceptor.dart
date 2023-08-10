@@ -19,11 +19,11 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static final List<_FunctionWithZIndex> _interceptors = [];
   static final InterceptorResults results = InterceptorResults();
 
-  static Function(Object) errorProcessing = _errorProcessing;
+  static Function(Object, StackTrace) errorProcessing = _errorProcessing;
 
-  static void _errorProcessing(Object error) {
+  static void _errorProcessing(Object error, StackTrace stackTrace) {
     print("The BackButtonInterceptor threw an ERROR: $error.");
-    Future.delayed(const Duration(), () => throw error);
+    Future.delayed(const Duration(), () => Error.throwWithStackTrace(error, stackTrace));
   }
 
   static Future<void> Function() handlePopRouteFunction = WidgetsBinding.instance.handlePopRoute;
@@ -209,8 +209,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
           results.results.add(InterceptorResult(interceptor.name, result));
         }
-      } catch (error) {
-        errorProcessing(error);
+      } catch (error, stackTrace) {
+        errorProcessing(error, stackTrace);
       }
 
       if (result == true) stopDefaultButtonEvent = true;

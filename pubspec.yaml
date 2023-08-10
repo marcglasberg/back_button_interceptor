@@ -1,6 +1,6 @@
 name: back_button_interceptor
 description: Back Button Interceptor. May be used to do stuff when the Android back-button is tapped, as an alternative to `WillPopScope`.
-version: 6.0.2
+version: 7.0.0
 # author: Marcelo Glasberg <marcglasberg@gmail.com>
 homepage: https://github.com/marcglasberg/back_button_interceptor
 
