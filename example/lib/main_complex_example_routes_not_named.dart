@@ -89,9 +89,9 @@ class NewScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 ContainerWithInterceptor("first"),
                 SizedBox(width: 20),
                 ContainerWithInterceptor("second"),
