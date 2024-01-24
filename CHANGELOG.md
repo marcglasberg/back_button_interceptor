@@ -1,4 +1,4 @@
-## [7.0.0] - 2023/08/10
+## [7.0.1] - 2023/08/10
 
 * When your interceptor throws an error, you now also get its stacktrace. This is a breaking change
   only if you define your own `errorProcessing` function. If that's the case and your code breaks,
