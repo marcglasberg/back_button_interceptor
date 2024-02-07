@@ -10,9 +10,17 @@ You may add **interceptor functions** to be called when the back button is tappe
 may perform some useful work, and then, if any of them return `true`, the default button process
 (usually popping a Route) will not be fired.
 
-<br>
+## Android 13
 
-In more detail: All added functions are called, in order. If any function returns `true`, the
+To make it work on Android 13 and up, set this to `false` in the Android manifest:
+
+```
+android:enableOnBackInvokedCallback="false"
+```
+
+## In more detail
+
+All added functions are called, in order. If any function returns `true`, the
 combined result is `true`, and the default button process will NOT be fired. Only if all functions
 return `false` (or `null`), the combined result is `false`, and the default button process will be
 fired.
@@ -79,13 +87,7 @@ function will only be called if all previous functions returned false
 
 * The interceptor function can return `bool` or `Future<bool>`.
 
-## Import the package
-
-Add
-back_button_interceptor [as a dependency](https://pub.dartlang.org/packages/back_button_interceptor#-installing-tab-)
-in your `pubspec.yaml`. Then, import it:
-
-    import 'package:back_button_interceptor/back_button_interceptor.dart';
+---
 
 ## Examples
 

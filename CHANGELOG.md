@@ -1,3 +1,8 @@
+## [7.0.2] - 2023/02/07
+
+* Updated the README to include: "To make it work on Android 13 and up, set this to `false` in the
+  Android manifest: `android:enableOnBackInvokedCallback="false"`
+
 ## [7.0.1] - 2023/08/10
 
 * When your interceptor throws an error, you now also get its stacktrace. This is a breaking change
