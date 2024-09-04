@@ -137,6 +137,8 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     _interceptors.clear();
   }
 
+  /// Gets the current navigator route.
+  ///
   /// Trick explained here: https://github.com/flutter/flutter/issues/20451
   /// Note `ModalRoute.of(context).settings.name` doesn't always work.
   static Route? getCurrentNavigatorRoute(BuildContext context) {
@@ -148,10 +150,33 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     return currentRoute;
   }
 
+  /// Gets the name of the current navigator route.
+  ///
   /// Trick explained here: https://github.com/flutter/flutter/issues/20451
   /// Note `ModalRoute.of(context).settings.name` doesn't always work.
   static String? getCurrentNavigatorRouteName(BuildContext context) =>
       getCurrentNavigatorRoute(context)!.settings.name;
+
+  /// Gets the current navigator route, if that route has a name.
+  /// If it doesn't have a name, it will go back until it finds a route with a name.
+  /// This can be helpful if you are in a dialog or bottom sheet, and you want to know
+  /// the route of the screen it's in.
+  static Route? getInnermostNamedNavigatorRoute(BuildContext context) {
+    Route? currentRoute;
+    Navigator.popUntil(context, (Route<dynamic> route) {
+      currentRoute = route;
+
+      return (route.settings.name != null) && (route.settings.name!.isNotEmpty);
+    });
+    return currentRoute;
+  }
+
+  /// Gets the name of the current navigator route, if that route has a name.
+  /// If it doesn't have a name, it will go back until it finds a route with a name.
+  /// This can be helpful if you are in a dialog or bottom sheet, and you want to know
+  /// the name of the route of the screen it's in.
+  static String? getInnermostNamedNavigatorRouteName(BuildContext context) =>
+      getInnermostNamedNavigatorRoute(context)!.settings.name;
 
   static Future<dynamic> _handleNavigationInvocation(MethodCall methodCall) async {
     // POP.

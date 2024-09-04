@@ -1,3 +1,11 @@
+## [7.1.0]
+
+* Added static methods `BackButtonInterceptor.getInnermostNamedNavigatorRoute` 
+  and `BackButtonInterceptor.getInnermostNamedNavigatorRouteName`. Those methods will
+  get the current navigator route, if that route has a name. If it doesn't have a name, 
+  it will go back until it finds a route with a name. This can be helpful if you are in
+  a dialog or bottom sheet, and you want to know the route of the screen it's in.
+
 ## [7.0.3]
 
 * Updated the README to include: "To make it work on Android 13 and up, set this to `false` in the
