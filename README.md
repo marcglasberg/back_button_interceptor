@@ -1,3 +1,5 @@
+[![](./example/SponsoredByMyTextAi.png)](https://mytext.ai)
+
 [![pub package](https://img.shields.io/pub/v/back_button_interceptor.svg)](https://pub.dartlang.org/packages/back_button_interceptor)
 
 # back_button_interceptor
