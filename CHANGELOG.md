@@ -1,4 +1,4 @@
-## 8.0.1
+## 8.0.2
 
 * Sponsored by [MyText.ai](https://mytext.ai)
 
