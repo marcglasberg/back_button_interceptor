@@ -2,7 +2,7 @@
 
 [![Pub popularity](https://badgen.net/pub/popularity/back_button_interceptor)](https://pub.dev/packages/back_button_interceptor)
 [![Pub Version](https://img.shields.io/pub/v/back_button_interceptor?style=flat-square&logo=dart)](https://pub.dev/packages/back_button_interceptor)
-[![GitHub stars](https://img.shields.io/github/stars/marcglasberg/back_button_interceptor?style=social)](https://github.com/woltapp/back_button_interceptor)
+[![GitHub stars](https://img.shields.io/github/stars/marcglasberg/back_button_interceptor?style=social)](https://github.com/marcglasberg/back_button_interceptor)
 ![Code Climate issues](https://img.shields.io/github/issues/marcglasberg/back_button_interceptor?style=flat-square)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/marcglasberg/back_button_interceptor?style=flat-square)
 ![GitHub contributors](https://img.shields.io/github/contributors/marcglasberg/back_button_interceptor?style=flat-square)
@@ -10,7 +10,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/marcglasberg/back_button_interceptor?style=flat-square)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
 [![Developed by Marcelo Glasberg](https://img.shields.io/badge/Developed%20by%20Marcelo%20Glasberg-blue.svg)](https://glasberg.dev/)
-[![Wolt on pub.dev](https://img.shields.io/pub/publisher/back_button_interceptor.svg)](https://pub.dev/packages/glasberg.dev/publisher)
+[![Glasberg.dev on pub.dev](https://img.shields.io/pub/publisher/async_redux.svg)](https://pub.dev/publishers/glasberg.dev/packages)
 [![Platforms](https://badgen.net/pub/flutter-platform/back_button_interceptor)](https://pub.dev/packages/back_button_interceptor)
 
 # back_button_interceptor
