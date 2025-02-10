@@ -187,6 +187,10 @@ console, with their names and z-indexes, by doing:
 print(BackButtonInterceptor.describe());
 ```
 
+## Incompatibilities
+
+This package is currently incompatible with deep links of the GoRouter package.
+
 ## See also:
 
 * https://docs.flutter.io/flutter/widgets/WillPopScope-class.html
