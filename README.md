@@ -1,6 +1,5 @@
 [![](./example/SponsoredByMyTextAi.png)](https://mytext.ai)
 
-[![Pub popularity](https://badgen.net/pub/popularity/back_button_interceptor)](https://pub.dev/packages/back_button_interceptor)
 [![Pub Version](https://img.shields.io/pub/v/back_button_interceptor?style=flat-square&logo=dart)](https://pub.dev/packages/back_button_interceptor)
 [![GitHub stars](https://img.shields.io/github/stars/marcglasberg/back_button_interceptor?style=social)](https://github.com/marcglasberg/back_button_interceptor)
 ![Code Climate issues](https://img.shields.io/github/issues/marcglasberg/back_button_interceptor?style=flat-square)
