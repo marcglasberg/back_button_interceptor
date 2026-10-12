@@ -56,6 +56,16 @@ void main() {
     expect(reply, isTrue);
   });
 
+  testWidgets('a legacy pushRoute message still reaches the app once add was called',
+      (tester) async {
+    tester.binding.addObserver(observer);
+    addTearDown(() => tester.binding.removeObserver(observer));
+
+    await _sendNavigationMessage(tester, const MethodCall('pushRoute', '/orders/42'));
+
+    expect(observer.received.map((info) => info.uri.toString()), ['/orders/42']);
+  });
+
   testWidgets('handlePushRouteInformationFunction can be overridden', (tester) async {
     final defaultFunction = BackButtonInterceptor.handlePushRouteInformationFunction;
     addTearDown(() => BackButtonInterceptor.handlePushRouteInformationFunction = defaultFunction);

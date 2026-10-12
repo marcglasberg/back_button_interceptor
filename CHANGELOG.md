@@ -9,6 +9,11 @@
   README). Apps that handle deep links with a plugin should turn Flutter's deep linking off, as
   they would without this package.
 
+* Fixed: a legacy `pushRoute` message (e.g. a hash URL edited by hand in a web `MaterialApp`
+  without a router, or an add-to-app host calling `pushRoute`) threw a TypeError instead of
+  reaching the app: the default `handlePushRouteFunction` was a `handlePushRoute` tear-off cast to a
+  type it does not have, which threw on every read.
+
 ## 8.0.5
 
 * Sponsored by [MyText.ai](https://mytext.ai)

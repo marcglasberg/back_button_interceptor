@@ -28,8 +28,9 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
   static Future<void> Function() handlePopRouteFunction = WidgetsBinding.instance.handlePopRoute;
 
+  // Not a cast tear-off: handlePushRoute's parameter is non-nullable.
   static Future<void> Function(String?) handlePushRouteFunction =
-      WidgetsBinding.instance.handlePushRoute as Future<void> Function(String?);
+      (route) => WidgetsBinding.instance.handlePushRoute(route!);
 
   /// Delivers a `pushRouteInformation` message to the app. That message is how Flutter's own deep
   /// linking delivers a link (on iOS also one that launches the app), and on the web how the
