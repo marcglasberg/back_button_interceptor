@@ -31,6 +31,24 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
   static Future<void> Function(String?) handlePushRouteFunction =
       WidgetsBinding.instance.handlePushRoute as Future<void> Function(String?);
 
+  /// Delivers a `pushRouteInformation` message to the app. That message is how Flutter's own deep
+  /// linking delivers a link (on iOS also one that launches the app), and on the web how the
+  /// browser's Back and Forward buttons reach a `Router` app (`MaterialApp.router`, GoRouter). Once
+  /// [add] has been called this package handles the navigation channel (also after [remove]), so
+  /// the message must be passed on here, or the app never sees it.
+  ///
+  /// Flutter's own handler for it is private, so it is passed on as the location only. That is
+  /// everything a deep link carries; a browser Back or Forward also carries the route state the
+  /// app stored with that history entry, which is dropped (a `Router` rebuilds the page from its
+  /// URL).
+  ///
+  /// An override should complete with the `bool` [WidgetsBinding.handlePushRoute] returns (on
+  /// Flutter 3.24 and later): it is the reply to the platform. On iOS (Flutter 3.24 to 3.47), a
+  /// universal link answered with anything but `true` is handed back to the system and opens in
+  /// Safari.
+  static Future<void> Function(Map<Object?, Object?>) handlePushRouteInformationFunction =
+      (arguments) => WidgetsBinding.instance.handlePushRoute(arguments['location'] as String);
+
   /// Sets a function of type [InterceptorFunction] to be called when the back button is tapped.
   /// This function may perform some useful work, and then, if it returns `true`,
   /// the default button process (usually popping a Route) will NOT be fired.
@@ -186,6 +204,10 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
     // PUSH.
     else if (methodCall.method == 'pushRoute')
       return _pushRoute(methodCall.arguments);
+
+    // PUSH ROUTE INFORMATION (deep links; the browser's Back and Forward buttons).
+    else if (methodCall.method == 'pushRouteInformation')
+      return handlePushRouteInformationFunction(methodCall.arguments as Map<Object?, Object?>);
 
     // OTHER.
     else
