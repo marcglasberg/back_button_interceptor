@@ -1,9 +1,6 @@
 analyzer:
-  strong-mode:
-    # Will become the default once non-nullable types land
-    # https://github.com/dart-lang/sdk/issues/31410#issuecomment-510683629
-    implicit-casts: false
-    implicit-dynamic: false
+  language:
+    strict-casts: true
   errors:
     # treat missing required parameters as a warning (not a hint)
     missing_required_param: warning
@@ -345,13 +342,6 @@ linter:
     # https://dart-lang.github.io/linter/lints/implementation_imports.html
     - implementation_imports
 
-    # Although there are some false positives, this lint generally catches unnecessary checks
-    # - https://github.com/dart-lang/linter/issues/811
-    #
-    # pedantic: disabled
-    # https://dart-lang.github.io/linter/lints/invariant_booleans.html
-    - invariant_booleans
-
     # Type check for Iterable<T>.contains(other) where other is! T
     # otherwise contains will always report false. Those errors are usually very hard to catch.
     # https://dart-lang.github.io/linter/lints/iterable_contains_unrelated_type.html
@@ -531,11 +521,6 @@ linter:
     # pedantic: disabled
     # https://dart-lang.github.io/linter/lints/prefer_double_quotes.html
     # - prefer_double_quotes
-
-    # Prevent confusion with call-side when using named parameters
-    # pedantic: enabled
-    # https://dart-lang.github.io/linter/lints/prefer_equal_for_default_values.html
-    - prefer_equal_for_default_values
 
     # Single line methods + implementation makes it hard to write comments for that line.
     # Dense code isn't necessarily better code.
