@@ -1,3 +1,19 @@
+## 8.1.0
+
+* Fixed: once `BackButtonInterceptor.add` had been called, `pushRouteInformation` messages were
+  dropped. Deep links delivered by Flutter's own deep linking (GoRouter included; on iOS also links
+  that launch the app) and, in `Router` apps on the web, the browser's Back and Forward buttons no
+  longer reached the app, and on iOS (Flutter 3.24 to 3.47) universal links were handed back to the
+  system and opened in Safari. They are now passed on through the new, overridable
+  `BackButtonInterceptor.handlePushRouteInformationFunction` (see "Deep links and the web" in the
+  README). Apps that handle deep links with a plugin should turn Flutter's deep linking off, as
+  they would without this package.
+
+* Fixed: a legacy `pushRoute` message (e.g. a hash URL edited by hand in a web `MaterialApp`
+  without a router, or an add-to-app host calling `pushRoute`) threw a TypeError instead of
+  reaching the app: the default `handlePushRouteFunction` was a `handlePushRoute` tear-off cast to a
+  type it does not have, which threw on every read.
+
 ## 8.0.5
 
 * Sponsored by [MyText.ai](https://mytext.ai)

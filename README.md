@@ -186,9 +186,23 @@ console, with their names and z-indexes, by doing:
 print(BackButtonInterceptor.describe());
 ```
 
-## Incompatibilities
+## Deep links and the web
 
-This package is currently incompatible with deep links of the GoRouter package.
+Once `BackButtonInterceptor.add` has been called, this package handles Flutter's navigation channel
+for the rest of the app session, also after the interceptors are removed. Deep links that Flutter's
+own deep linking delivers (on by default since Flutter 3.27) are passed on to the app, GoRouter
+included. An app that handles deep links with a plugin should turn Flutter's deep linking off, as it
+would without this package.
+
+**`Router` apps on the web** (`MaterialApp.router`, GoRouter): the browser's Back and Forward
+buttons are not back-button events and are never intercepted. They still navigate, but the app
+receives only the URL of the history entry, not the route state stored with it: the `Router`
+rebuilds the page from the URL (with GoRouter, pages pushed on top of it and their `extra` are not
+restored). A web app that relies on that state should never call `add` on the web
+(`if (!kIsWeb) BackButtonInterceptor.add(...)`): removing the interceptors later does not undo it.
+
+**Other apps on the web** (`MaterialApp` without a router): the browser's Back button arrives as a
+back-button event and is intercepted like the Android back button. Nothing is lost.
 
 ## See also:
 
