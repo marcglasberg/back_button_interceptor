@@ -4,9 +4,11 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.0 <4.0.0'
+  sdk: '>=3.13.0 <4.0.0'
+  flutter: ">=3.47.0"
 
 dependencies:
+  material_ui: ^1.11.1
   back_button_interceptor:
     path: ../
   flutter:

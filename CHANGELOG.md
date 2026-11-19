@@ -1,3 +1,9 @@
+## 8.0.7
+
+* Fix the default push-route callback on modern Flutter bindings by replacing an invalid nullable function cast with an adapter.
+
+* Use Flutter widgets and services without importing the deprecated Material library. Navigation interception and Android back-button configuration are unchanged.
+
 ## 8.0.6
 
 * Sponsored by [MyText.ai](https://mytext.ai)

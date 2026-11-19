@@ -1,7 +1,7 @@
 // Developed by Marcelo Glasberg (2019) https://glasberg.dev and https://github.com/marcglasberg
 // For more info, see: https://pub.dartlang.org/packages/back_button_interceptor
 import 'package:back_button_interceptor/back_button_interceptor.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// The first screen has a button which opens a second screen.
 /// The second screen has 3 red squares. By tapping the Android back-button (or the "pop" button)

@@ -1,7 +1,7 @@
 // Developed by Marcelo Glasberg (2019) https://glasberg.dev and https://github.com/marcglasberg
 // For more info, see: https://pub.dartlang.org/packages/back_button_interceptor
 import 'package:back_button_interceptor/back_button_interceptor.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 // When pressing the back-button, a message will be printed to the console,
 // and no back action will happen. In this case, the interceptor function is

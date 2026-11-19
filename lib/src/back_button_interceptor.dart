@@ -5,8 +5,8 @@ library back_button_interceptor;
 import 'dart:async';
 
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import 'merge_sort.dart';
 
@@ -28,8 +28,9 @@ abstract class BackButtonInterceptor implements WidgetsBinding {
 
   static Future<void> Function() handlePopRouteFunction = WidgetsBinding.instance.handlePopRoute;
 
-  static Future<void> Function(String?) handlePushRouteFunction =
-      WidgetsBinding.instance.handlePushRoute as Future<void> Function(String?);
+  static Future<void> Function(String?) handlePushRouteFunction = (route) async {
+    if (route != null) await WidgetsBinding.instance.handlePushRoute(route);
+  };
 
   /// Sets a function of type [InterceptorFunction] to be called when the back button is tapped.
   /// This function may perform some useful work, and then, if it returns `true`,
